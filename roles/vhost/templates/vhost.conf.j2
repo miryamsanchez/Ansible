@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+    DocumentRoot "{{document_root}}"
+    ServerName {{nombre_dominio}}
+    
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    
+    # Other directives here
+    <Directory "{{document_root}}">
+	    Options Indexes FollowSymLinks
+	    Require all granted
+    </Directory>
+</VirtualHost>

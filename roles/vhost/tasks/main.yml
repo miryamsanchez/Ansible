@@ -1,0 +1,33 @@
+- name: "Creación carpeta raíz de documentos"
+  file: 
+    state: directory
+    path: "{{document_root}}"
+    owner: "www-data"
+    group: "www-data"
+    mode: "0755"
+
+- name: "Fichero índice de muestra"
+  template:
+    src: "index.html.j2"
+    dest: "{{document_root}}/index.html"
+
+- name: "Configuración de host virtual"
+  template: 
+    src: vhost.conf.j2
+    dest: "/etc/apache2/sites-available/{{nombre_dominio}}.conf"
+
+
+- name: "Activatión de site"
+  file:
+    src: "/etc/apache2/sites-available/{{nombre_dominio}}.conf"
+    dest: "/etc/apache2/sites-enabled/{{nombre_dominio}}.conf"
+    state: link
+
+
+- name: "Recargar Apache"
+  service:
+    name: apache2
+    state: reloaded
+    
+
+

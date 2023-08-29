@@ -1,0 +1,7 @@
+---
+  - name: "Puesta en marcha del servicio"
+    hosts: web
+    become: yes
+    roles: 
+      - actualizador
+      - vhost
